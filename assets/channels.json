@@ -1,0 +1,47 @@
+{
+  "status": 200,
+  "data": {
+    "id": "123-123-123-123",
+    "title": "EdTechJokerTV",
+    "author": "EdTechJoker",
+    "description": "A series of talks to learn about JSON and web standard communications",
+    "license": "by-sa",
+    "metadata": {},
+    "items": [
+      {
+        "id": "item-123-456-789",
+        "indent": 0,
+        "location": "hax-wp-killer.html",
+        "slug": "hax-wp-killer",
+        "order": 0,
+        "parent": null,
+        "title": "HAX: Wordpress Killer",
+        "description": "The future we need, not the future we have.",
+        "metadata": {
+          "source": "https://www.youtube.com/watch?v=9MT-BNuUCpM",
+          "timecode": 0,
+          "author":"Bryan Ollendyke",
+          "created": 1697033522,
+          "updated": 1697034021
+        }
+      },
+      {
+        "id": "item-abc-456-789",
+        "indent": 0,
+        "location": "this-is-water.html",
+        "slug": "this-is-water",
+        "order": 0,
+        "parent": null,
+        "title": "This, is water",
+        "description": "What is water?",
+        "metadata": {
+          "source": "https://www.youtube.com/watch?v=eC7xzavzEKY",
+          "timecode": 45,
+          "author":"David Foster Wallace",
+          "created": 1697033522,
+          "updated": 1697034021
+        }
+      }
+    ]
+  }
+}
