@@ -46,6 +46,8 @@ export class TvApp extends LitElement {
             <tv-channel 
               title="${item.title}"
               presenter="${item.metadata.author}"
+              description = "${item.description}"
+              dialog = "${item.dialog}"
               @click="${this.itemClick}"
             >
             </tv-channel>
@@ -58,7 +60,7 @@ export class TvApp extends LitElement {
       </div>
       <!-- dialog -->
       <sl-dialog label="Dialog" class="dialog">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Beyonce shows the world who runs it in her viral single " Who runs the world"
         <sl-button slot="footer" variant="primary" @click="${this.closeDialog}">Close</sl-button>
       </sl-dialog>
     `;

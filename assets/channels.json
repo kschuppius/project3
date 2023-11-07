@@ -12,15 +12,15 @@
         "id": "item-123-456-789",
         "indent": 0,
         "location": "hax-wp-killer.html",
-        "slug": "hax-wp-killer",
+        "slug": "Run-the-World",
         "order": 0,
         "parent": null,
-        "title": "HAX: Wordpress Killer",
+        "title": "Girls Run the World",
         "description": "The future we need, not the future we have.",
         "metadata": {
-          "source": "https://www.youtube.com/watch?v=9MT-BNuUCpM",
+          "source": "https://youtu.be/VBmMU_iwe6U?si=t85hGotDwTklid8v",
           "timecode": 0,
-          "author":"Bryan Ollendyke",
+          "author":"Beyonce",
           "created": 1697033522,
           "updated": 1697034021
         }
@@ -28,16 +28,16 @@
       {
         "id": "item-abc-456-789",
         "indent": 0,
-        "location": "this-is-water.html",
-        "slug": "this-is-water",
+        "location": "Rosie-the-riveter.html",
+        "slug": "Rosie-the-riveter",
         "order": 0,
         "parent": null,
-        "title": "This, is water",
-        "description": "What is water?",
+        "title": "Rosie the Riveter",
+        "description": "Who was Rosie the Riveter",
         "metadata": {
-          "source": "https://www.youtube.com/watch?v=eC7xzavzEKY",
+          "source": "https://youtu.be/jhCEdhxdJUc?si=EY4v72JPZCYNTPzb",
           "timecode": 45,
-          "author":"David Foster Wallace",
+          "author":"Jaimie DeFina",
           "created": 1697033522,
           "updated": 1697034021
         }
