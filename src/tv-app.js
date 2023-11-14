@@ -11,6 +11,11 @@ export class TvApp extends LitElement {
     this.name = '';
     this.source = new URL('../assets/channels.json', import.meta.url).href;
     this.listings = [];
+    this.activeItem = {
+      title: null,
+      id: null,
+      description: null,
+    };
   }
   // convention I enjoy using to define the tag's name
   static get tag() {
@@ -22,8 +27,11 @@ export class TvApp extends LitElement {
       name: { type: String },
       source: { type: String },
       listings: { type: Array },
+      activeItem: { type: Object }
     };
   }
+
+
   // LitElement convention for applying styles JUST to our element
   static get styles() {
     return [
@@ -43,39 +51,75 @@ export class TvApp extends LitElement {
       ${
         this.listings.map(
           (item) => html`
-            <tv-channel 
+            <tv-channel
+              id="${item.id}"
               title="${item.title}"
               presenter="${item.metadata.author}"
-              description = "${item.description}"
-              dialog = "${item.dialog}"
+              description="${item.description}"
+              video="https://www.youtube.com/watch?v=eC7xzavzEKY"
               @click="${this.itemClick}"
             >
             </tv-channel>
           `
         )
       }
-      <div>
+       <div>
+      ${this.activeItem.name}
+      ${this.activeItem.description}
         <!-- video -->
+        <iframe
+    width="700"
+    height="200"
+    src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+    frameborder="0"
+    allowfullscreen
+  ></iframe></iframe>
+
         <!-- discord / chat - optional -->
       </div>
       <!-- dialog -->
       <sl-dialog label="Dialog" class="dialog">
-        Beyonce shows the world who runs it in her viral single " Who runs the world"
-        <sl-button slot="footer" variant="primary" @click="${this.closeDialog}">Close</sl-button>
+        ${this.activeItem.title}activetitle
+        ${this.activeItem.description}
+        <sl-button slot="footer" variant="primary" @click="${this.watchDialog}">Watch</sl-button>
       </sl-dialog>
+
+  
     `;
   }
+
+  changeVideo() {
+    // Update the iframe source URL when an item is clicked
+    const iframe = this.shadowRoot.querySelector('iframe');
+    iframe.src = this.activeItem.video;}
 
   closeDialog(e) {
     const dialog = this.shadowRoot.querySelector('.dialog');
     dialog.hide();
   }
 
-  itemClick(e) {
-    console.log(e.target);
-    const dialog = this.shadowRoot.querySelector('.dialog');
-    dialog.show();
+  watchDialog(e){
+    const dialog = this.shadowRoot.querySelector('.dialog ');
+    dialog.hide();
   }
+
+commandContextChanged(e){
+  this.commandContext = e.detail.value;
+}
+
+
+itemClick(e) {
+  console.log(e.target);
+  this.activeItem = {
+    title: e.target.title,
+    id: e.target.id,
+    description: e.target.description,
+    video: e.target.video, // Set the source in the activeItem
+  };
+  this.changeVideo(); // Call the changeVideo method
+  const dialog = this.shadowRoot.querySelector('.dialog');
+  dialog.show();
+}
 
   // LitElement life cycle for when any property changes
   updated(changedProperties) {
