@@ -11,6 +11,11 @@ export class TvApp extends LitElement {
     this.name = '';
     this.source = new URL('../assets/channels.json', import.meta.url).href;
     this.listings = [];
+    this.activeItem = {
+      title: null,
+      id: null,
+      description: null,
+    };
   }
   // convention I enjoy using to define the tag's name
   static get tag() {
@@ -22,6 +27,7 @@ export class TvApp extends LitElement {
       name: { type: String },
       source: { type: String },
       listings: { type: Array },
+      activeItem: { type: Object }
     };
   }
   // LitElement convention for applying styles JUST to our element
@@ -97,6 +103,7 @@ export class TvApp extends LitElement {
               <script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
             </div>
       </div>
+      
       <!-- dialog -->
       <sl-dialog label="Dialog" class="dialog">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
