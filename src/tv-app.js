@@ -107,7 +107,7 @@ export class TvApp extends LitElement {
       <!-- dialog -->
       <sl-dialog label="Dialog" class="dialog">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        <sl-button slot="footer" variant="primary" @click="${this.closeDialog}">Close</sl-button>
+        <sl-button slot="footer" variant="primary" @click="${this.closeDialog}">WATCH</sl-button>
       </sl-dialog>
     `;
   }
