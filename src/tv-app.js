@@ -11,6 +11,14 @@ export class TvApp extends LitElement {
     this.name = '';
     this.source = new URL('../assets/channels.json', import.meta.url).href;
     this.listings = [];
+    this.temporaryItem = {
+      id: null,
+      title: null,
+      presenter: null,
+      time: null,
+      description: null,
+      video: null
+    }
     this.activeItem = {
       title: null,
       id: null,
@@ -27,6 +35,7 @@ export class TvApp extends LitElement {
       name: { type: String },
       source: { type: String },
       listings: { type: Array },
+      temporaryItem: {type: Object },
       activeItem: { type: Object }
     };
   }
@@ -39,6 +48,17 @@ export class TvApp extends LitElement {
         margin: 16px;
         padding: 16px;
       }
+      header {
+        color: #000;
+        padding: 16px;
+        text-align: center;
+      }
+      .h1 {
+        font-size: 32px;
+        margin-bottom: 16px;
+      }
+
+
       .listing-container {
         justify-self: center;
         max-width: 1344px;
@@ -60,6 +80,30 @@ export class TvApp extends LitElement {
         line-height: 1.5;
         font-size: 1em;
       }
+      .timecode-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 10px;
+        padding: 5px;
+        color: white;
+        background-color: #384194;
+        border-radius: 5px;
+        z-index: 1; /* Ensure the timecode box is above other elements */
+      }
+      p {
+        font-size: 12px;
+      }
+
+      video-player {
+        width: 750px;
+        height: auto;
+        max-width: 1000px; /* Adjust the max-width as needed */
+        border: 1px solid #cccccc; /*for a YouTube-like look :) */
+        border-radius: 8px; /*border-radius for rounded corners */
+      }
+
+
       h5 {
         font-weight: 400;
       }
@@ -68,6 +112,7 @@ export class TvApp extends LitElement {
       }
       .middle-page{
         display: inline-flex;
+
       }
       .
       `,
@@ -76,27 +121,37 @@ export class TvApp extends LitElement {
   // LitElement rendering template of your element
   render() {
     return html`
-      <h2>${this.name}</h2>
-      <div class="listing-container">
+      <div>
+      <h1 class="listing-container"> </h1>
+      
       ${
         this.listings.map(
           (item) => html`
             <tv-channel 
               title="${item.title}"
               presenter="${item.metadata.author}"
+              description="${item.description}"
+                video="${item.metadata.source}"
+                time="${item.metadata.time}"
               @click="${this.itemClick}"
             >
             </tv-channel>
           `
         )
       }
+      <video-player id="video-player" source="https://youtu.be/l8pnmrR4zPI?si=FSXrTThztWF6oTC4" accent-color="blue" dark track="https://haxtheweb.org/files/HAXshort.vtt"
+        >
+</video-player>
+
+
+
       </div>
 
       <div class="middle-page">
+    
         <!-- video -->
       <figure id="player-figure" class="image is-16by9">
-                <iframe id="player" class="has-ratio box p-0" width="560" height="315" src="https://www.youtube.com/embed/QJMBhXjtaYU?enablejsapi=1" title="Teaching for Now and Planning for Later - Reclaim Open Online" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
-              </figure>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/VBmMU_iwe6U?si=0mxCB2K1KRy12ajt&amp;start=7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> </figure>
  <!-- discord / chat - optional -->
         <div class="discord">
               <widgetbot server="954008116800938044" channel="1106691466274803723" width="100%" height="100%" style="display: inline-block; overflow: hidden; background-color: rgb(54, 57, 62); border-radius: 7px; vertical-align: top; width: 100%; height: 100%;"><iframe title="WidgetBot Discord chat embed" allow="clipboard-write; fullscreen" src="https://e.widgetbot.io/channels/954008116800938044/1106691466274803723?api=a45a80a7-e7cf-4a79-8414-49ca31324752" style="border: none; width: 100%; height: 100%;"></iframe></widgetbot>
@@ -105,20 +160,37 @@ export class TvApp extends LitElement {
       </div>
       
       <!-- dialog -->
-      <sl-dialog label="${activeItem.title}" class="dialog">
+      <sl-dialog label="${String(this.temporaryItem.description)}" class="dialog">
       ${this.activeItem.description}
-        <sl-button slot="footer" variant="primary" @click="${this.closeDialog}">WATCH</sl-button>
+        <sl-button slot="footer" variant="primary" @click="${this.watchButtonClick}">WATCH</sl-button>
       </sl-dialog>
     `;
   }
-
-  closeDialog(e) {
+  watchButtonClick() {
+    this.changeVideo();
     const dialog = this.shadowRoot.querySelector('.dialog');
     dialog.hide();
   }
 
+changeVideo() {
+    const videoPlayer = this.shadowRoot.querySelector('video-player');
+    videoPlayer.source = this.createSource();
+    this.shadowRoot.querySelector('video-player').shadowRoot.querySelector('a11y-media-player').play()
+  }
+  
+  closeDialog(e) {
+    const dialog = this.shadowRoot.querySelector('.dialog');
+    dialog.hide();
+  }
   itemClick(e) {
-    console.log(e.target);
+    this.temporaryItem = {
+      id: e.target.id,
+      title: e.target.title,
+      presenter: e.target.presenter,
+      time: e.target.time,
+      description: e.target.description,
+      video: e.target.video
+    }
     const dialog = this.shadowRoot.querySelector('.dialog');
     dialog.show();
   }
