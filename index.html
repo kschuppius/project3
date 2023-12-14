@@ -19,7 +19,7 @@
       color: black;
     }
     tv-channel {
-      margin: 100px;
+      margin: 10px;
     }
   </style>
   <title>tv-station</title>
@@ -38,6 +38,27 @@
   <script type="module">
     import "./src/tv-app.js";
     import "./src/tv-channel.js";
+    function updatePageContent(title, author, description, startTime) {
+      document.getElementById('title').innerText = toString(this.activeItem.title);
+      document.getElementById('presenter').innerText = author;
+      document.getElementById('description').innerText = description;
+      document.getElementById('startTime').innerText = startTime;
+      document.getElementById('timecode').innerText = timecode;
+    }
+
+    const tvApp = document.getElementsByName("tv-app.js");
+
+    // Listen for changes in the activeItem and update the page content accordingly
+    tvApp.addEventListener('active-item-changed', (event) => {
+      //const { title, author, description, startTime } = event.detail.activeItem;
+      const title = event.detail.activeItem.title;
+      const author = event.detail.activeItem.author;
+      const description = event.detail.activeItem.description;
+      const startTime = event.detail.activeItem.startTime;
+      const timecode = event.detail.activeItem.timecode;
+      updatePageContent(title, author, description, longDescription, startTime);
+    });
+
   </script>
 </body>
 
