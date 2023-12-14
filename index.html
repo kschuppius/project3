@@ -33,13 +33,18 @@
       With Men being the dominant gender when it comes to many things it never hurts to remind Women that they matter 
     and they make a huge impact as well.  </p>
   </tv-channel>
+  <tv-channel id="GIS" timecode="20" title="Girls in STEM" presenter="TED talk" 
+  description="Woman belong in STEM sometimes they just need a little push to believe it!" 
+  video="https://www.youtube.com/watch?v=eC7xzavzEKY">…
+</tv-channel>
+
   <h3>Featured Videos</h3>
   
   <script type="module">
     import "./src/tv-app.js";
     import "./src/tv-channel.js";
     function updatePageContent(title, author, description, startTime) {
-      document.getElementById('title').innerText = toString(this.activeItem.title);
+      document.getElementById('title').innerText = toString(this.temporaryItem.title);
       document.getElementById('presenter').innerText = author;
       document.getElementById('description').innerText = description;
       document.getElementById('startTime').innerText = startTime;
@@ -51,12 +56,12 @@
     // Listen for changes in the activeItem and update the page content accordingly
     tvApp.addEventListener('active-item-changed', (event) => {
       //const { title, author, description, startTime } = event.detail.activeItem;
-      const title = event.detail.activeItem.title;
-      const author = event.detail.activeItem.author;
-      const description = event.detail.activeItem.description;
-      const startTime = event.detail.activeItem.startTime;
-      const timecode = event.detail.activeItem.timecode;
-      updatePageContent(title, author, description, longDescription, startTime);
+      const title = event.detail.temporaryItem.title;
+      const author = event.detail.temporaryItem.author;
+      const description = event.detail.temporaryItem.description;
+      const startTime = event.detail.temporaryItem.startTime;
+      const timecode = event.detail.temporaryItem.timecode;
+      updatePageContent(title, author, description, startTime);
     });
 
   </script>
